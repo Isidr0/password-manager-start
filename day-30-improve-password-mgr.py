@@ -65,7 +65,17 @@ def save():
         # with open("data.json", "w") as data_file:
         #     json.dump(data, data_file, indent=4)  # Saving updated data
 
+# ---------------------------- SEARCH PASSWORD ------------------------------- #
 
+def find_password():
+
+    website = website_entry.get()
+    email = email_entry.get()
+    password = password_entry.get()
+
+    with open("data.json", "r") as data_file:
+        data = json.load(data_file)
+        print(data["Website"])
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -97,7 +107,7 @@ password_entry = Entry(width=32)
 password_entry.grid(row=3, column=1, sticky="w")
 
 # Buttons
-search_button = Button(text="Search")
+search_button = Button(text="Search", command=find_password)
 search_button.grid(row=1, column=2, sticky="we")
 generate_password_button = Button(text="Generate Password", command=generate_password)
 generate_password_button.grid(row=3, column=2, sticky="w")
