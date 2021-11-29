@@ -7,6 +7,8 @@ import json
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 #Password Generator Project
+
+
 def generate_password():
     letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
@@ -24,6 +26,8 @@ def generate_password():
     pyperclip.copy(password)
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
+
+
 def save():
 
     website = website_entry.get()
@@ -67,15 +71,30 @@ def save():
 
 # ---------------------------- SEARCH PASSWORD ------------------------------- #
 
+
 def find_password():
 
     website = website_entry.get()
-    email = email_entry.get()
-    password = password_entry.get()
 
-    with open("data.json", "r") as data_file:
-        data = json.load(data_file)
-        print(data["Website"])
+    try:
+        with open("data.json", "r") as data_file:
+            data = json.load(data_file)
+    except FileNotFoundError:
+        messagebox.showinfo(title="Error", message="No data file found.")
+    else:
+        if website in data:
+            email = data[website]["email"]
+            password = data[website]["password"]
+
+            messagebox.showinfo(title=website, message=f"Email: {email}\nPassword: {password}")
+        else:
+            # You could do this with exception logic, but it's better to use if/else when possible.
+            messagebox.showinfo(title="Error", message="No details for the website exists.")
+
+
+
+
+
 
 # ---------------------------- UI SETUP ------------------------------- #
 
